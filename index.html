@@ -8,10 +8,10 @@
 </head>
 <body>
     <form>
-        <label>Dice Count:</label><input type="text" placeholder="10"><div></div>
+        <label>Dice Count:</label><input type="text" id="diceCount" placeholder="10"><div></div>
         <label>To Hit:</label>
         <div id="toHit">
-            <input type="radio" id="hitTwo" name="hit" value="2"><label for="hitTwo">2</label>
+            <input type="radio" id="hitTwo" name="hit" value="2" checked><label for="hitTwo">2</label>
             <input type="radio" id="hitThree" name="hit" value="3"><label for="hitThree">3</label>
             <input type="radio" id="hitFour" name="hit" value="4"><label for="hitFour">4</label>
             <input type="radio" id="hitFive" name="hit" value="5"><label for="hitFive">5</label>
@@ -22,7 +22,7 @@
         
         <label>To Wound:</label>
         <div id="toWound">
-            <input type="radio" id="woundTwo" name="wound" value="2"><label for="woundTwo">2</label>
+            <input type="radio" id="woundTwo" name="wound" value="2" checked><label for="woundTwo">2</label>
             <input type="radio" id="woundThree" name="wound" value="3"><label for="woundThree">3</label>
             <input type="radio" id="woundFour" name="wound" value="4"><label for="woundFour">4</label>
             <input type="radio" id="woundFive" name="wound" value="5"><label for="woundFive">5</label>
@@ -32,7 +32,7 @@
         
         <label>Rend:</label>
         <div id="totalRend">
-            <input type="radio" id="rendNone" name="rend" value="-"><label for="rendNone">-</label>
+            <input type="radio" id="rendNone" name="rend" value="-" checked><label for="rendNone">-</label>
             <input type="radio" id="rendOne" name="rend" value="1"><label for="rendOne">1</label>
             <input type="radio" id="rendTwo" name="rend" value="2"><label for="rendTwo">2</label>
             <input type="radio" id="rendThree" name="rend" value="3"><label for="rendThree">3</label>
@@ -41,7 +41,20 @@
             <input type="radio" id="rendSix" name="rend" value="6"><label for="rendSix">6</label>
         </div>
         <label>Target's Armor:</label>
+        <div id="targetArmor">
+            <input type="radio" id="armorNone" name="armor" value="-" checked><label for="armorNone">-</label>
+            <input type="radio" id="armorOne" name="armor" value="1"><label for="armorOne">1</label>
+            <input type="radio" id="armorTwo" name="armor" value="2"><label for="armorTwo">2</label>
+            <input type="radio" id="armorThree" name="armor" value="3"><label for="armorThree">3</label>
+            <input type="radio" id="armorFour" name="armor" value="4"><label for="armorFour">4</label>
+            <input type="radio" id="armorFive" name="armor" value="5"><label for="armorFive">5</label>
+            <input type="radio" id="armorSix" name="armor" value="6"><label for="armorSix">6</label>
+        </div>
         <label>Damage:</label>
+        <div id="damage">
+            <input type="text" id="totalDamage" placeholder="1">
+        </div>
+        <input type="button" id="btnSubmit" value="Calculate">
     </form>
     
 
