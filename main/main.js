@@ -10,7 +10,18 @@ document.addEventListener("DOMContentLoaded",()=>{
   
     submit.addEventListener("click",(e)=>{
         e.preventDefault();
-        console.log("asdf");
+        // console.log("asdf");
+        let diceCount = document.getElementById("diceCount").value;
+        console.log("Dice Count: " + diceCount);
+        let toHit = document.getElementsByName("hit");
+        for (let i = 0; i < toHit.length;i++)
+        {
+            if(toHit[i].checked)
+            {
+                console.log("To Hit: " + toHit[i].value);
+                break;
+            }
+        }
     });
 
     // console.log("Roll 40 dice looking for 4 up.")
