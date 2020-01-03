@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     let fivePlus = 2/6;
     let sixPlus = 1/6;
 
+    console.log("2+: " + twoPlus);
+    console.log("3+: " + threePlus);
+    console.log("4+: " + fourPlus);
+    console.log("5+ :" + fivePlus);
+    console.log("6+ :" + sixPlus);
+
     let submit = document.getElementById("btnSubmit");
     
   
@@ -60,11 +66,17 @@ document.addEventListener("DOMContentLoaded",()=>{
             {
                 console.log("Target Armor: " + armorOptions[i].value);
                 armor = armorOptions[i].value;
+                if (armor == "-")
+                {
+                    armor = 0;
+                }
                 break;
             }
         }
         
-        console.log("Damage per attack: " + totalDamage);
+        console.log("Damage per attack: " + damage);
+        //armorCheck(0,4,10);
+
 
     });
 
@@ -77,7 +89,39 @@ document.addEventListener("DOMContentLoaded",()=>{
 })
 
 
-function test()
+function getHits(attacks, toHit)
 {
-    console.log("caught");
+    let result = attacks * toHit;
+    return result;
+}
+
+function getWounds(hits, toWound)
+{
+    let result = hits * toWound;
+    return result;
+}
+
+function armorCheck(rend, targetArmor, wounds)
+{
+    let armor = targetArmor - rend;
+    let chanceToBeat = (armor-1)/6;
+
+    console.log("rend: " + rend);
+    console.log("target armor: " + targetArmor);
+    console.log("armor: " + armor);
+
+    console.log(chanceToBeat);
+    let result = wounds * chanceToBeat;
+
+    return result;
+
+
+
+}
+
+function damageThrough(successfulWounds, damage)
+{
+
+    // TODO: Account for dx damage
+    return successfulWounds * damage;
 }

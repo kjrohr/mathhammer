@@ -8,7 +8,7 @@
 </head>
 <body>
     <form>
-        <label>Dice Count:</label><input type="text" id="diceCount" placeholder="10"><div></div>
+        <label>Dice Count:</label><input type="text" id="diceCount" placeholder="10" required><div></div>
         <label>To Hit:</label>
         <div id="toHit">
             <input type="radio" id="hitTwo" name="hit" value="2" checked><label for="hitTwo">2</label>
@@ -52,7 +52,7 @@
         </div>
         <label>Damage:</label>
         <div id="damage">
-            <input type="text" id="totalDamage" placeholder="1">
+            <input type="text" id="totalDamage" placeholder="1" required>
         </div>
         <input type="button" id="btnSubmit" value="Calculate">
     </form>
