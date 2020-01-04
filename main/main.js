@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             if(toWoundOptions[i].checked)
             {
                 console.log("To Wound: " + toWoundOptions[i].value);
-                toWound = toWoundOptions[i].value;
+                toWound = (toWoundOptions[i].value -1) / 6;
                 break;
             }
         }
@@ -57,6 +57,10 @@ document.addEventListener("DOMContentLoaded",()=>{
             {
                 console.log("Rend: " + rendOptions[i].value);
                 rend = rendOptions[i].value;
+                if (rend == "-")
+                {
+                    rend = 0;
+                }
                 break;
             }
         }
@@ -71,12 +75,21 @@ document.addEventListener("DOMContentLoaded",()=>{
                 {
                     armor = 0;
                 }
+                else
+                {
+                    armor--;
+                }
                 break;
             }
         }
         let totalHits = getHits(diceCount, toHit);
         console.log("Damage per attack: " + damage);
         console.log("Total Hits: " + totalHits)
+        let totalWounds = getWounds(totalHits, toWound);
+        console.log("Total Wounds: " + totalWounds);
+        let totalSuccesses = armorCheck(rend,armor,totalWounds);
+        console.log("Total Successes: " + totalSuccesses);
+        
     });
 
     // console.log("Roll 40 dice looking for 4 up.")
@@ -104,21 +117,33 @@ function getWounds(hits, toWound)
 
 function armorCheck(rend, targetArmor, wounds)
 {
+    let armor = 0;
+    let chanceToBeat = 0;
+    let result = 0;
     console.log("armorCheck confirmed");
-    let armor = targetArmor - rend;
-    let chanceToBeat = Number((armor-1)/6);
+    console.log("*************************************");
+    if (targetArmor == 0)
+    {
+        result = wounds;
+        return result;
+    }
+    else
+    {
+        console.log("Target Armor: " + targetArmor);
+        console.log("Rend: " + rend);
+        armor = Number(targetArmor) + Number(rend);
+        console.log("Armor: " + armor);
+        chanceToBeat = Number(armor/6);
+        console.log("Chance to beat: " + chanceToBeat);
+    }
+    
+    result = wounds * chanceToBeat;
 
-    console.log("rend: " + rend);
-    console.log("target armor: " + targetArmor);
-    console.log("armor: " + Number(armor));
-
-    console.log(chanceToBeat);
-    let result = wounds * chanceToBeat;
-
+    if (result > wounds)
+    {
+        result = wounds;
+    }
     return result;
-
-
-
 }
 
 function damageThrough(successfulWounds, damage)
