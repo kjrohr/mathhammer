@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded",()=>{
             if(toHitOptions[i].checked)
             {
                 console.log("To Hit: " + toHitOptions[i].value);
-                toHit = toHitOptions[i].value;
+                toHit = (toHitOptions[i].value - 1) / 6;
+                console.log("in loop to hit: " + toHit);
                 break;
             }
         }
@@ -73,11 +74,9 @@ document.addEventListener("DOMContentLoaded",()=>{
                 break;
             }
         }
-        
+        let totalHits = getHits(diceCount, toHit);
         console.log("Damage per attack: " + damage);
-        //armorCheck(0,4,10);
-
-
+        console.log("Total Hits: " + totalHits)
     });
 
     // console.log("Roll 40 dice looking for 4 up.")
@@ -91,24 +90,27 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 function getHits(attacks, toHit)
 {
+    console.log('getHits confirmed');
     let result = attacks * toHit;
     return result;
 }
 
 function getWounds(hits, toWound)
 {
+    console.log("getWounds confirmed");
     let result = hits * toWound;
     return result;
 }
 
 function armorCheck(rend, targetArmor, wounds)
 {
+    console.log("armorCheck confirmed");
     let armor = targetArmor - rend;
-    let chanceToBeat = (armor-1)/6;
+    let chanceToBeat = Number((armor-1)/6);
 
     console.log("rend: " + rend);
     console.log("target armor: " + targetArmor);
-    console.log("armor: " + armor);
+    console.log("armor: " + Number(armor));
 
     console.log(chanceToBeat);
     let result = wounds * chanceToBeat;
@@ -121,7 +123,7 @@ function armorCheck(rend, targetArmor, wounds)
 
 function damageThrough(successfulWounds, damage)
 {
-
+    console.log("damageThrough confirmed");
     // TODO: Account for dx damage
     return successfulWounds * damage;
 }
