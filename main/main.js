@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         {
             if(toHitOptions[i].checked)
             {
+                // This is reversed
                 console.log("To Hit: " + toHitOptions[i].value);
                 toHit = (toHitOptions[i].value - 1) / 6;
                 console.log("in loop to hit: " + toHit);
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         {
             if(toWoundOptions[i].checked)
             {
+                // This is reversed
                 console.log("To Wound: " + toWoundOptions[i].value);
                 toWound = (toWoundOptions[i].value -1) / 6;
                 break;
@@ -89,6 +91,9 @@ document.addEventListener("DOMContentLoaded",()=>{
         console.log("Total Wounds: " + totalWounds);
         let totalSuccesses = armorCheck(rend,armor,totalWounds);
         console.log("Total Successes: " + totalSuccesses);
+        let totalDamage = damageThrough(totalSuccesses, damage);
+        console.log("Total Damage:  " + totalDamage);
+
         
     });
 
@@ -149,6 +154,34 @@ function armorCheck(rend, targetArmor, wounds)
 function damageThrough(successfulWounds, damage)
 {
     console.log("damageThrough confirmed");
-    // TODO: Account for dx damage
-    return successfulWounds * damage;
+    let totalDamage = 0;
+    if (isNaN(damage))
+    {
+        
+        if (damage == "d3")
+        {
+            for(let i = 0; i < successfulWounds;i++)
+            {
+                totalDamage += Math.round(Math.random() * 3);
+            }
+            
+        }
+        else if (damage == "d6")
+        {
+            for(let i = 0; i < successfulWounds;i++)
+            {
+                totalDamage += Math.round(Math.random() * 6);
+            }
+        }
+        else
+        {
+            // Nothing Valid
+        }
+    }
+    else
+    {
+        // is number
+        totalDamage = successfulWounds * damage;
+    }
+    return totalDamage;
 }
