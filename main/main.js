@@ -191,23 +191,23 @@ function whichValue(value)
     let realValue = 0;
     if (value == 2)
     {
-
+        realValue = 5/6;
     }
     else if (value == 3)
     {
-
+        realValue = 4/6;
     }
     else if (value == 4)
     {
-
+        realValue = 3/6;
     }
     else if (value == 5)
-    {
-
+    { 
+        realValue = 2/6;
     }
     else if (value == 6)
     {
-
+        realValue = 1/6;
     }
     else
     {
