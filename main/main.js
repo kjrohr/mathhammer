@@ -185,3 +185,34 @@ function damageThrough(successfulWounds, damage)
     }
     return totalDamage;
 }
+
+function whichValue(value)
+{
+    let realValue = 0;
+    if (value == 2)
+    {
+
+    }
+    else if (value == 3)
+    {
+
+    }
+    else if (value == 4)
+    {
+
+    }
+    else if (value == 5)
+    {
+
+    }
+    else if (value == 6)
+    {
+
+    }
+    else
+    {
+        console.log("issue with whichValue function");
+    }
+
+    return realValue;
+}
