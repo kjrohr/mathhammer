@@ -1,19 +1,5 @@
 document.addEventListener("DOMContentLoaded",()=>{
-    let twoPlus = 5/6;
-    let threePlus = 4/6;
-    let fourPlus = 3/6;
-    let fivePlus = 2/6;
-    let sixPlus = 1/6;
-
-    console.log("2+: " + twoPlus);
-    console.log("3+: " + threePlus);
-    console.log("4+: " + fourPlus);
-    console.log("5+ :" + fivePlus);
-    console.log("6+ :" + sixPlus);
-
     let submit = document.getElementById("btnSubmit");
-    
-  
     submit.addEventListener("click",(e)=>{
         e.preventDefault();
         console.clear();
@@ -34,86 +20,69 @@ document.addEventListener("DOMContentLoaded",()=>{
         toWound = checkOptions(toWoundOptions);
         rend = checkOptions(rendOptions);
         armor = checkOptions(armorOptions);
+        
+        console.log("To Hit: " + toHit);
+        console.log("To Wound: " + toWound);
+        console.log("Rend: " + rend);
+        console.log("Armor: " + armor);
+        console.log("*************************************");
 
 
 
-        for (let i = 0; i < armorOptions.length; i++)
-        {
-            if (armorOptions[i].checked)
-            {
-                console.log("Target Armor: " + armorOptions[i].value);
-                armor = armorOptions[i].value;
-                if (armor == "-")
-                {
-                    armor = 0;
-                }
-                else
-                {
-                    armor--;
-                }
-                break;
-            }
-        }
         let totalHits = getHits(diceCount, toHit);
-        console.log("Damage per attack: " + damage);
-        console.log("Total Hits: " + totalHits)
         let totalWounds = getWounds(totalHits, toWound);
-        console.log("Total Wounds: " + totalWounds);
         let totalSuccesses = armorCheck(rend,armor,totalWounds);
-        console.log("Total Successes: " + totalSuccesses);
         let totalDamage = damageThrough(totalSuccesses, damage);
-        console.log("Total Damage:  " + totalDamage);
     });
 })
 
 function getHits(attacks, toHit)
 {
-    console.log('getHits confirmed');
     let result = attacks * toHit;
-    return result;
+    console.log("*************************************");
+    console.log("Total Hits: " + result);
+    console.log("*************************************");
+
+    return Math.floor(result);
 }
 
 function getWounds(hits, toWound)
 {
-    console.log("getWounds confirmed");
     let result = hits * toWound;
-    return result;
+    console.log("*************************************");
+    console.log("Total Wounds: " + result);
+    console.log("*************************************");
+
+    return Math.floor(result);
 }
 
 function armorCheck(rend, targetArmor, wounds)
 {
     let armor = 0;
-    let chanceToBeat = 0;
     let result = 0;
-    console.log("armorCheck confirmed");
-    console.log("*************************************");
     if (targetArmor == 0)
     {
         result = wounds;
-        return result;
+        return Math.floor(result);
     }
-    else
-    {
-        console.log("Target Armor: " + targetArmor);
-        console.log("Rend: " + rend);
-        armor = Number(targetArmor) + Number(rend);
-        console.log("Armor: " + armor);
-        chanceToBeat = Number(armor/6);
-        console.log("Chance to beat: " + chanceToBeat);
-    }
-    
-    result = wounds * chanceToBeat;
+
+    result = wounds * targetArmor;
 
     if (result > wounds)
     {
         result = wounds;
     }
-    return result;
+
+    console.log("*************************************");
+    console.log("Total Unsaved Wounds: " + result);
+    console.log("*************************************");
+
+    return Math.floor(result);
 }
 
 function damageThrough(successfulWounds, damage)
 {
-    console.log("damageThrough confirmed");
+
     let totalDamage = 0;
     if (isNaN(damage))
     {
@@ -122,7 +91,7 @@ function damageThrough(successfulWounds, damage)
         {
             for(let i = 0; i < successfulWounds;i++)
             {
-                totalDamage += Math.round(Math.random() * 3);
+                totalDamage += 2;
             }
             
         }
@@ -130,7 +99,7 @@ function damageThrough(successfulWounds, damage)
         {
             for(let i = 0; i < successfulWounds;i++)
             {
-                totalDamage += Math.round(Math.random() * 6);
+                totalDamage += 4;
             }
         }
         else
@@ -143,6 +112,11 @@ function damageThrough(successfulWounds, damage)
         // is number
         totalDamage = successfulWounds * damage;
     }
+
+    console.log("*************************************");
+    console.log("Total Damage: " + totalDamage);
+    console.log("*************************************");
+
     return totalDamage;
 }
 
@@ -195,4 +169,9 @@ function checkOptions(value)
         }
     }
     return returnValue;
+}
+
+function displayTotals(hits,wounds,rend,armor,damage)
+{
+
 }
