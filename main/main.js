@@ -30,42 +30,12 @@ document.addEventListener("DOMContentLoaded",()=>{
         let rend = 0;
         let armor = 2;
 
-        for (let i = 0; i < toHitOptions.length;i++)
-        {
-            if(toHitOptions[i].checked)
-            {
-                // This is reversed
-                console.log("To Hit: " + toHitOptions[i].value);
-                toHit = (toHitOptions[i].value - 1) / 6;
-                console.log("in loop to hit: " + toHit);
-                break;
-            }
-        }
+        toHit = checkOptions(toHitOptions);
+        toWound = checkOptions(toWoundOptions);
+        rend = checkOptions(rendOptions);
+        armor = checkOptions(armorOptions);
 
-        for (let i = 0; i < toWoundOptions.length;i++)
-        {
-            if(toWoundOptions[i].checked)
-            {
-                // This is reversed
-                console.log("To Wound: " + toWoundOptions[i].value);
-                toWound = (toWoundOptions[i].value -1) / 6;
-                break;
-            }
-        }
 
-        for (let i = 0; i < rendOptions.length;i++)
-        {
-            if (rendOptions[i].checked)
-            {
-                console.log("Rend: " + rendOptions[i].value);
-                rend = rendOptions[i].value;
-                if (rend == "-")
-                {
-                    rend = 0;
-                }
-                break;
-            }
-        }
 
         for (let i = 0; i < armorOptions.length; i++)
         {
@@ -93,18 +63,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         console.log("Total Successes: " + totalSuccesses);
         let totalDamage = damageThrough(totalSuccesses, damage);
         console.log("Total Damage:  " + totalDamage);
-
-        
     });
-
-    // console.log("Roll 40 dice looking for 4 up.")
-    // let diceCount = 40;
-    // let result = diceCount * fourPlus;
-    // console.log("Out of " + diceCount + " dice, " + result + " were successes.");
-
-
 })
-
 
 function getHits(attacks, toHit)
 {
@@ -209,10 +169,30 @@ function whichValue(value)
     {
         realValue = 1/6;
     }
+    else if (value == "-")
+    {
+        returnValue = 0;
+    }
     else
     {
         console.log("issue with whichValue function");
     }
 
     return realValue;
+}
+
+function checkOptions(value)
+{
+    let returnValue = 0;
+
+    for (let i = 0; i < value.length;i++)
+    {
+        if(value[i].checked)
+        {
+            // This is reversed
+            returnValue = whichValue(value[i].value);
+            break;
+        }
+    }
+    return returnValue;
 }
