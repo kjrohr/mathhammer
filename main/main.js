@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded",()=>{
     submit.addEventListener("click",(e)=>{
         e.preventDefault();
         console.clear();
-        // console.log("asdf");
         let diceCount = document.getElementById("diceCount").value;
         console.log("Dice Count: " + diceCount);
         let toHitOptions = document.getElementsByName("hit");
@@ -18,47 +17,69 @@ document.addEventListener("DOMContentLoaded",()=>{
 
         toHit = checkOptions(toHitOptions);
         toWound = checkOptions(toWoundOptions);
-        rend = checkOptions(rendOptions);
-        armor = checkOptions(armorOptions);
-        
-        console.log("To Hit: " + toHit);
-        console.log("To Wound: " + toWound);
-        console.log("Rend: " + rend);
+        // ISSUE HERE WITH REND
+        armor = calcArmor(armorOptions,rendOptions);
         console.log("Armor: " + armor);
-        console.log("*************************************");
+        
 
-
-
+        
         let totalHits = getHits(diceCount, toHit);
         let totalWounds = getWounds(totalHits, toWound);
-        let totalSuccesses = armorCheck(rend,armor,totalWounds);
+        let totalSuccesses = armorCheck(armor,totalWounds);
         let totalDamage = damageThrough(totalSuccesses, damage);
+        displayTotals(totalHits,totalWounds,rend,armor,totalDamage);
     });
 })
 
 function getHits(attacks, toHit)
 {
     let result = attacks * toHit;
-    console.log("*************************************");
-    console.log("Total Hits: " + result);
-    console.log("*************************************");
-
     return Math.floor(result);
 }
 
 function getWounds(hits, toWound)
 {
     let result = hits * toWound;
-    console.log("*************************************");
-    console.log("Total Wounds: " + result);
-    console.log("*************************************");
-
     return Math.floor(result);
 }
 
-function armorCheck(rend, targetArmor, wounds)
+function armorCheck(targetArmor, wounds)
 {
-    let armor = 0;
+
+    console.log("**************************");
+    console.log("target armor: " + targetArmor);
+    console.log("wounds: " + wounds);
+    console.log("**************************");
+    
+    if (targetArmor <= 2)
+    {
+        targetArmor = 1/6;
+    }
+    else if (targetArmor == 3)
+    {
+        targetArmor = 2/6;
+    }
+    else if (targetArmor == 4)
+    {
+        targetArmor = 3/6;
+    }
+    else if (targetArmor == 5)
+    {
+        targetArmor = 4/6;
+    }
+    else if (targetArmor == 6)
+    {
+        targetArmor = 5/6
+    }
+    else if (targetArmor > 6)
+    {
+        targetArmor = 0;
+    }
+    else
+    {
+        console.log("Something is wrong with armor check");
+    }
+
     let result = 0;
     if (targetArmor == 0)
     {
@@ -72,11 +93,6 @@ function armorCheck(rend, targetArmor, wounds)
     {
         result = wounds;
     }
-
-    console.log("*************************************");
-    console.log("Total Unsaved Wounds: " + result);
-    console.log("*************************************");
-
     return Math.floor(result);
 }
 
@@ -112,11 +128,6 @@ function damageThrough(successfulWounds, damage)
         // is number
         totalDamage = successfulWounds * damage;
     }
-
-    console.log("*************************************");
-    console.log("Total Damage: " + totalDamage);
-    console.log("*************************************");
-
     return totalDamage;
 }
 
@@ -143,7 +154,7 @@ function whichValue(value)
     {
         realValue = 1/6;
     }
-    else if (value == "-")
+    else if (value == "-" || value > 6)
     {
         returnValue = 0;
     }
@@ -173,5 +184,42 @@ function checkOptions(value)
 
 function displayTotals(hits,wounds,rend,armor,damage)
 {
+    console.log("Total Hits: " + hits);
+    console.log("Total Wounds: " + wounds);
+    console.log("Rend: " + rend);
+    console.log("Target's Armor: " + armor);
+    console.log("Total Damage: " + damage);
+}
 
+function calcArmor(armorOptions, rendOptions)
+{
+    let armor = 0;
+    let rend = 0;
+    let totalArmor = 0;
+    for (let i = 0; i < armorOptions.length; i++)
+    {
+        if (armorOptions[i].checked)
+        {
+            armor = armorOptions[i].value;
+            if (armor == "-")
+            {
+                armor = 0;
+            }
+        }
+
+        if (rendOptions[i].checked)
+        {
+            rend = rendOptions[i].value;
+            if (rend == "-")
+            {
+                rend = 0;
+            }
+        }
+    }
+    totalArmor = Number(armor) + Number(rend);
+    console.log("**************************");
+    console.log("target armor: " + totalArmor);
+    console.log("**************************");
+
+    return totalArmor;
 }
