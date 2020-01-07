@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded",()=>{
     let submit = document.getElementById("btnSubmit");
+    let rerollOnes = document.getElementById("rerollOnes");
+    let rerollAll = document.getElementById("rerollAll");
+
     submit.addEventListener("click",(e)=>{
         e.preventDefault();
         console.clear();
@@ -17,18 +20,25 @@ document.addEventListener("DOMContentLoaded",()=>{
 
         toHit = checkOptions(toHitOptions);
         toWound = checkOptions(toWoundOptions);
-        // ISSUE HERE WITH REND
-        armor = calcArmor(armorOptions,rendOptions);
-        console.log("Armor: " + armor);
-        
+        armor = calcArmor(armorOptions,rendOptions);   
 
-        
+        // Things to display to user
         let totalHits = getHits(diceCount, toHit);
         let totalWounds = getWounds(totalHits, toWound);
         let totalSuccesses = armorCheck(armor,totalWounds);
         let totalDamage = damageThrough(totalSuccesses, damage);
         displayTotals(totalHits,totalWounds,rend,armor,totalDamage);
     });
+
+    rerollOnes.addEventListener("click", (e)=> {
+        rerollAll.checked = false;
+    });
+
+    rerollAll.addEventListener("click",(e)=>{
+        rerollOnes.checked = false;
+    });
+
+
 })
 
 function getHits(attacks, toHit)
@@ -222,4 +232,34 @@ function calcArmor(armorOptions, rendOptions)
     console.log("**************************");
 
     return totalArmor;
+}
+
+function mortalWoundsOnSix(value)
+{
+    let returnValue = value * (1/6);
+    return Math.floor(returnValue);
+}
+
+// Mortal wounds on hit that end attack sequence
+
+function explodingSixes(value)
+{
+    // Get sixes then multiply by 2
+    let returnValue = (value * (1/6)) * 2;
+    return Math.floor(returnValue);
+}
+
+function rerollingOnes(value, toHit)
+{
+    // Get ones then reroll
+    let returnValue = (value * (1/6)) * toHit;
+    return Math.floor(returnValue);
+
+}
+
+function rerollingAll(value, toHit)
+{
+    let returnValue = (value - Math.floor((value * toHit))) * toHit;
+    
+    return Math.floor(returnValue);
 }
