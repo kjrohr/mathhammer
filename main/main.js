@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded",()=>{
     let submit = document.getElementById("btnSubmit");
-    let rerollOnes = document.getElementById("rerollOnes");
-    let rerollAll = document.getElementById("rerollAll");
+    let rerollHitsOnes = document.getElementById("rerollHitsOnes");
+    let rerollHitsAll = document.getElementById("rerollHitsAll");
+    let rerollWoundsOnes = document.getElementById("rerollWoundsOnes");
+    let rerollWoundsAll = document.getElementById("rerollWoundsAll");
+    let rerollArmorOnes = document.getElementById("rerollArmorOnes");
+    let rerollArmorAll = document.getElementById("rerollArmorAll");
+
 
     submit.addEventListener("click",(e)=>{
         e.preventDefault();
@@ -30,13 +35,34 @@ document.addEventListener("DOMContentLoaded",()=>{
         displayTotals(totalHits,totalWounds,rend,armor,totalDamage);
     });
 
-    rerollOnes.addEventListener("click", (e)=> {
-        rerollAll.checked = false;
+
+
+
+    // *** HOUSE KEEPING ***
+    rerollHitsOnes.addEventListener("click", (e)=> {
+        rerollHitsAll.checked = false;
     });
 
-    rerollAll.addEventListener("click",(e)=>{
-        rerollOnes.checked = false;
+    rerollHitsAll.addEventListener("click",(e)=>{
+        rerollHitsOnes.checked = false;
     });
+
+    rerollWoundsOnes.addEventListener("click", (e)=>{
+        rerollWoundsAll.checked = false;
+    });
+
+    rerollWoundsAll.addEventListener("click",(e)=>{
+        rerollWoundsOnes.checked = false;
+    });
+
+    rerollArmorOnes.addEventListener("click", (e)=>{
+        rerollArmorAll.checked = false;
+    });
+
+    rerollArmorAll.addEventListener("click", (e)=>{
+        rerollArmorOnes.checked = false;
+    });
+    // *** END OF HOUSE KEEPING ***
 
 
 })
