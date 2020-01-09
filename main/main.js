@@ -33,6 +33,23 @@ document.addEventListener("DOMContentLoaded",()=>{
         let totalSuccesses = armorCheck(armor,totalWounds);
         let totalDamage = damageThrough(totalSuccesses, damage);
         displayTotals(totalHits,totalWounds,rend,armor,totalDamage);
+
+
+
+        // Gather to hits
+
+        // Check To hit options
+
+        // To Wound
+
+        // To Wound Options
+
+        // Saves
+
+        // Save Options
+
+        // Extra Save Options
+        
     });
 
 
